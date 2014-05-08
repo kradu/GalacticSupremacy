@@ -16,6 +16,13 @@
 @def QUERY_TYPE_INSERT 0
 @def QUERY_TYPE_UPDATE 1
 
+--Column definitions. Use _PUBLIC for fields that can be changed using update_.
+@def COLS_USER "user", "pass", "salt", "auth"
+@def COL_USER(x) user[@icol(COLS_USER, x)]
+
+@def SELECT_USER_LOGIN @join("SELECT id, ", COLS_USER, " FROM users WHERE user = ?;")
+@def SELECT_USER @join("SELECT id, ", COLS_USER, " FROM users WHERE id = ?;")
+
 function SQL_CONCAT(db_type, ...)
 	local n = select("#", ...)
 	if n < 1 then
@@ -52,6 +59,10 @@ function SQL_SESSION(db_type)
 	end
 	return ""
 end
+
+APP_SCHEMA = {
+@join('CREATE TABLE IF NOT EXISTS "users" ("id" INTEGER PRIMARY KEY NOT NULL, "user" VARCHAR(20) NOT NULL, "pass" CHAR(64) NOT NULL, "salt" CHAR(6) NOT NULL, "auth" INTEGER NOT NULL DEFAULT ',AUTH_USER,', UNIQUE (user) ON CONFLICT IGNORE);'),
+}
 
 ffi = require("ffi")
 ffi.cdef [[

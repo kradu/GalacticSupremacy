@@ -5,6 +5,12 @@ common = compile("plugins/common.lua")
 local db = c.CreateDatabase()
 c.ConnectDatabase(db, DATABASE_TYPE_MYSQL, 
 				  "127.0.0.1", "deco3800", "deco3800", "deco3800")
+				  
+for k,v in ipairs(APP_SCHEMA) do
+	for i, j in ipairs(common.split(v, ";")) do
+		c.ExecString(db, common.cstr(j))
+	end
+end
 
 --Load handlers.
 local handlers = compile("plugins/core/handlers.lua")
