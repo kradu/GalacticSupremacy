@@ -18,7 +18,15 @@ public class scout : MonoBehaviour {
 	void OnMouseOver() {
 		renderer.material.color = new Color (1F, 1F, 0);
 	}
-	
+
+	public void changeToBlue(){
+		renderer.material.color = new Color (0F, 0F, 1F);
+		}
+
+	public void moveToLocation(Vector3 newPosition){
+		transform.position = new Vector3(newPosition.x + 1F, newPosition.y, newPosition.z);
+		}
+
 	void OnMouseExit(){
 		renderer.material.color = new Color (1F, 1F, 1F);
 	}
