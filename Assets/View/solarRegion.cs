@@ -17,14 +17,14 @@ public class solarRegion : MonoBehaviour {
 		
 	}
 	void OnMouseOver() {
-		if (mainController.systemIsSelected == false) {
+		if (mainView.systemIsSelected == false) {
 			//Highlighting on hover
 			renderer.material.color = new Color (1F, 1F, 0);
 		}
 	}
 	
 	void OnMouseExit(){
-		if (mainController.systemIsSelected == false) {
+		if (mainView.systemIsSelected == false) {
 			//Resetting to normal colour after hover
 			renderer.material.color = new Color (1F, 1F, 1F);
 		}
@@ -32,7 +32,7 @@ public class solarRegion : MonoBehaviour {
 	
 	void OnMouseUp(){
 		//This is the orignal solar region being selected
-		if (mainController.systemIsSelected == false) {
+		if (mainView.systemIsSelected == false) {
 			//Setting up variables
 			scout createdScoutScript;
 			GameObject createdScout;
@@ -46,19 +46,22 @@ public class solarRegion : MonoBehaviour {
 			//Instantiate the scout with the location of beside the solar region
 			createdScout = Instantiate (scout, new Vector3 (xPos + SIZE, yPos, zPos), Quaternion.identity) as GameObject;
 			//Make sure that mainController knows that a system has been selected
-			mainController.systemIsSelected = true;
+			mainView.systemIsSelected = true;
 			//Accesses the functions of this solar region so that they can be used in mainController
-			mainController.selectedSolarRegion = this.gameObject.GetComponent<solarRegion> ();
+			mainView.selectedSolarRegion = this.gameObject.GetComponent<solarRegion> ();
 			//Giving the created scout to the mainController
-			mainController.scoutToMove = createdScout;
+			mainView.scoutToMove = createdScout;
+
+			//Centre the camera on this solar region
+
 		} 
 		//This is the destination solar region being selected
 		else {
 			//Gives the mainController this solar region
-			mainController.destinationSolarRegion = this;
+			mainView.destinationSolarRegion = this;
 			//Sets booleans appropriately
-			mainController.destinationIsSelected = true;
-			mainController.scoutHasMoved = false;
+			mainView.destinationIsSelected = true;
+			mainView.scoutHasMoved = false;
 		}
 	}
 	public void ChangeColour(Color colour){
