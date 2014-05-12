@@ -15,11 +15,11 @@ Loading C:\Users\KirqueDuSoleil\Documents\GitHub\GalacticSupremacy\Prototypes\mo
 desktop: 1440x900 60Hz; virtual: 1440x900 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
-(6.2, 0.0, 1.0)
+(7.7, 0.0, 4.0)
  
 (Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
 
-scout has moved to (0.0, 0.0, 5.0)
+scout has moved to (2.0, 0.0, 0.0)
  
 (Filename: C:/BuildAgent/work/d3d49558e4d408f4/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 53)
 

@@ -5,45 +5,52 @@ public class mainController : MonoBehaviour {
 	int seed = 10;
 	
 	int count = 0;
+	//GameObjects
 	public GameObject solarRegion;
+	public scout scoutToMoveScript;
+	public static GameObject scoutToMove;
+	//Boolean flags
 	public static bool systemIsSelected = false;
 	public static bool destinationIsSelected = false;
-	static bool scoutHasMoved = false;
+	public static bool scoutHasMoved = false;
+	//Solar regions between which the scout moves
 	public static solarRegion selectedSolarRegion;
 	public static solarRegion destinationSolarRegion;
-	public static GameObject scoutToMove;
-	public scout scoutToMoveScript;
 	// Use this for initialization
 	void Start () {
-		for(int i = 0; i <= 10; i++) {
-			
-			int size = Random.Range (0, 3);
-			solarRegion solarRegionScript;
-			GameObject solarRegionClone;
-			//GameObject sphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);
-			solarRegionClone = Instantiate(solarRegion, new Vector3 (Random.Range (0, 10), 0, Random.Range (0, 10)), Quaternion.identity) as GameObject;
-			solarRegionScript = solarRegionClone.gameObject.GetComponent<solarRegion>();
-			solarRegionScript.printID();
-			//solarRegionScript.ChangeColour(new Color (1F, 1F, 0F));
-			count++;
-		}
-		//system createdSystem = Instantiate(system, new Vector3 (Random.Range (0, 10), 0, Random.Range (0, 10)), Quaternion.identity) as system;
-		//createdSystem.ChangeColour(new Color(1F, 0, 1F));
+		//Sets out rows
+		for (int i = 0; i < 3; i++) {
+			//Sets out columns
+						for (int j = 0; j<4; j++) {
+				//Solar regions which are instantiated
+				solarRegion solarRegionScript;
+				GameObject solarRegionClone;
+				//Sets the spacing of the random locations so that there isn't overlap
+				int spacingInt = 4;
+				//Making the solar regions
+				solarRegionClone = Instantiate (solarRegion, new Vector3 (Random.Range (i*spacingInt, (i*spacingInt)+(spacingInt-1)), 0, Random.Range (j*spacingInt, (j*spacingInt)+(spacingInt-1))), Quaternion.identity) as GameObject;
+				//Getting access to the functions of the Solar region
+				solarRegionScript = solarRegionClone.gameObject.GetComponent<solarRegion> ();
+						}
+				}
 	}
 
 	
 	// Update is called once per frame
 	void Update () {
+		//Checking if there has been a destination selected for the scout to move to (should put this
+		//whole thing as function in scout class)
 		if (destinationIsSelected == true) {
+			//For debug purposes
 			destinationSolarRegion.ChangeColour (new Color(0F, 1F, 0F));
+			//Checking that the scout hasn't already moved
 			if(scoutHasMoved == false){
-				scoutHasMoved = true;
-				print (scoutToMove.transform.position);
+				//Accessing the functions of the scout in question
 				scoutToMoveScript = scoutToMove.gameObject.GetComponent<scout>();
+				//Sending the scout to the new solar region
 				scoutToMoveScript.moveToLocation (destinationSolarRegion.getLocation());
+				//Resetting the boolean
 				scoutHasMoved = true;
-				print ("scout has moved to " + destinationSolarRegion.getLocation().ToString());
-
 			}
 				}
 	}
