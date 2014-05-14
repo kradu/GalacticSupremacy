@@ -62,9 +62,9 @@ function hashPassword(password, salt)
 end
 
 function login(user, pass, session)
-	local query = c.CreateQuery(common.cstr(SELECT_USER_LOGIN), request, db, 0)
-	c.BindParameter(query, common.cstr(user))
-	local res = c.SelectQuery(query) 
+	local query = c.Query_Create(db, common.cstr(SELECT_USER_LOGIN))
+	c.Query_Bind(query, common.cstr(user))
+	local res = c.Query_Select(query) 
 	
 	if res == DATABASE_QUERY_STARTED 
 		and query.column_count == @icol(COLS_USER) then
@@ -105,7 +105,7 @@ function start_request()
 		if response then io.write(response) end
 		local empty = ""
 	end
-	c.WriteData(request.socket, common.cstr(response))
+	c.Socket_Write(request.socket, common.cstr(response))
 	return 1
 end
 
@@ -119,7 +119,7 @@ local ev = coroutine.create(run_coroutine)
 --use event_ctr to 'round-robin' events, to speed up empty event finding
 local event_ctr = 1
 
-request = c.GetNextRequest(worker)
+request = c.Request_GetNext(worker)
 while request ~= nil do
 	r = request.r
 	print(request)
@@ -174,7 +174,7 @@ while request ~= nil do
 		--event has finished. Ensure we clear out the old coroutine.
 		if co > 0 then events[co] = nil end
 		--Clean up the request
-		c.FinishRequest(request)
+		c.Request_Finish(request)
 	end
-	request = c.GetNextRequest(worker)
+	request = c.Request_GetNext(worker)
 end
