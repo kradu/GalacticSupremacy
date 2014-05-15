@@ -61,10 +61,10 @@ function hashPassword(password, salt)
 	return pass, salt
 end
 
-function login(user, pass, session)
-	local query = c.Query_Create(db, common.cstr(SELECT_USER_LOGIN))
+function login(user, pass)
+	local query = common.query_create(db, SELECT_USER_LOGIN)
 	c.Query_Bind(query, common.cstr(user))
-	local res = c.Query_Select(query) 
+	local res = c.Query_Select(query)
 	
 	if res == DATABASE_QUERY_STARTED 
 		and query.column_count == @icol(COLS_USER) then
@@ -86,14 +86,32 @@ function login(user, pass, session)
 end
 
 function handle_request()
+	--Start the main server loop.
 	local request_buf = common.appstr(request.headers_buf)
 	local u = unpacker(request_buf)
 	local _, command = u()
 	
+	local state = 0
 	if command == 0 then --LOGIN
 		local user = ffi.string(get_buffer(u))
 		local pass = ffi.string(get_buffer(u))
-		login(user, pass)
+		state = login(user, pass)
+	end
+	local cl_bytes = 0
+	while state == 1 do
+		--Send game state to client.
+		
+		
+		
+		
+		
+		cl_bytes = Socket.DataAvailable(request.socket)
+		if cl_bytes > 0 then
+			--Handle client data.
+		end
+		
+		c.Request_Queue(request)
+		coroutine.yield()
 	end
 	
 	return "\x01\x01"

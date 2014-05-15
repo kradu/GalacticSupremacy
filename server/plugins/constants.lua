@@ -63,7 +63,7 @@ function SQL_SESSION(db_type)
 end
 
 APP_SCHEMA = {
-@join('CREATE TABLE IF NOT EXISTS "users" ("id" INTEGER PRIMARY KEY NOT NULL, "user" VARCHAR(20) NOT NULL, "pass" CHAR(64) NOT NULL, "salt" CHAR(6) NOT NULL, "auth" INTEGER NOT NULL DEFAULT ',AUTH_USER,', UNIQUE (user) ON CONFLICT IGNORE);'),
+@join('CREATE TABLE IF NOT EXISTS "users" ("id" INTEGER PRIMARY KEY NOT NULL, "user" VARCHAR(20) NOT NULL, "pass" CHAR(64) NOT NULL, "salt" CHAR(6) NOT NULL, "auth" INTEGER NOT NULL DEFAULT ',AUTH_USER,');'),
 }
 
 ffi = require("ffi")
@@ -86,7 +86,6 @@ typedef struct {
 
 typedef struct {
   int32_t co;
-  Session* session;
 } LuaRequest;
 
 //Request handling
@@ -251,11 +250,19 @@ Database* Database_Get(size_t id);
 
 /*
 Query_Create creates a query object.
+Note: You should use ffi.gc to automatically destroy the query using 
+Query_Destroy.
 @param qry_str the query string. Can be set later using Query_Set.
 @param db the database object
 @returns the query object.
 */
 Query* Query_Create(Database* db, webapp_str_t* qry_str);
+
+/*
+Query_Destroy destroys a query object.
+@param qry the query object to destroy.
+*/
+void Query_Destroy(Query* qry);
 
 /*
 Query_Set sets the string of a query object.
@@ -324,6 +331,7 @@ void tinydir_close(Directory*);
 int tinydir_next(Directory*);
 int tinydir_readfile(Directory*, DirFile*);
 ]]
+
 c = ffi.C
 
 function compile(file)

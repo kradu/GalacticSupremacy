@@ -130,6 +130,14 @@ M.gensql = function(query, query_type, tbl, cond, validcols, ...)
 	end
 end
 
+M.query_create = function(db, qry, desc)
+	desc = desc or 0
+	qry = qry and M.cstr(qry)
+	local q = ffi.gc(c.Query_Create(db, qry), c.Query_Destroy)
+	q.need_desc = desc
+	return q
+end
+
 --Preallocate tables.
 local ret, new_table = pcall(require, "table.new")
 if not ret then new_table = function (narr, nrec) return {} end end
