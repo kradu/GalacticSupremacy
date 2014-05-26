@@ -50,6 +50,9 @@ public class generatePlanets : MonoBehaviour {
 			regions[i].scale = Random.Range(0.1f, 1.0f);
 			regions[i].texture = "texture" + Random.Range(1, 4);
 
+			regions[i].income = Random.Range(10, 30);
+			regions[i].income = Random.Range(3, 5);
+
 			//print("id: " + regions[i].id);
 		}
 		InitOwnership();

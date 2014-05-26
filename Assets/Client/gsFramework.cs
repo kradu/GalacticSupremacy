@@ -14,5 +14,7 @@ namespace gsFramework
 		public string texture;	// the planets texture for the map
 		public int[] adjacent;	// ID's of adjacent SolReg
 		public int owner;		// owners playerID
+		public int income;		// Income provided by SolReg
+		public int slots;		// Construction slots on this SolReg
 	}
 }
