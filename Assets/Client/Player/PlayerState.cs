@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+// server side class, needs 1 instance per player
 public class PlayerState : MonoBehaviour {
 	
 
@@ -10,22 +12,30 @@ public class PlayerState : MonoBehaviour {
 	public int credits= 10;
 
 	void Awake () {
+		// keep this object instance when transitioning between scenes.
 		DontDestroyOnLoad(this.gameObject);
 	}
 
 	void Start () {
-		// this should happen serverside instead!
+		// every incomeTime seconds, increment the income
 		InvokeRepeating("addIncome", incomeTime, incomeTime);
 	}
 	
-	// Update is called once per frame
 	void Update () {
 	
 	}
 
+	/* computeIncome can get called by the client to request a recomputation
+	 * of the income stat. 
+	 *
+	 */
+	public void computeIncome () {
+		// find all regions where SolReg.owner == player.id
+		// add up their income values
+		// set this.income = sum of income values
+	}
 
 	void addIncome () {
-		// should be serverside!
 		credits += income;
 	}
 

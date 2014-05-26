@@ -23,7 +23,7 @@ public class MainGUI : MonoBehaviour {
 
 	void OnGUI () {
 		resourcePanel = GUI.Window(0, resourcePanel, DrawResourcePanel, "Resources");
-		regionInfoPanel = GUI.Window(1, regionInfoPanel, DrawRegionPanel, "Region Panel");
+		regionInfoPanel = GUI.Window(1, regionInfoPanel, DrawRegionPanel, "Region "+ selectedSR.id);
 
 	}
 
@@ -36,7 +36,10 @@ public class MainGUI : MonoBehaviour {
 	}
 
 	void DrawRegionPanel(int id) {
-		GUI.Label(new Rect(20, 20, 120, 20 ),"Region "+ selectedSR.id +" selected." );
+		GUI.Label(new Rect(20, 20, 120, 20 ),"Region "+ selectedSR.id);
+		GUI.Label(new Rect(20, 60, 120, 20 ),"Owned by Player "+ selectedSR.owner);
+		GUI.Label(new Rect(20, 100, 120, 20 ),"Income: "+ selectedSR.income);
+		GUI.Label(new Rect(20, 140, 120, 20 ),"Construction Slots:"+ selectedSR.slots);
 	}
 
 }
