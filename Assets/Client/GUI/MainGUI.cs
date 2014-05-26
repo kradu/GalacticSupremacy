@@ -36,10 +36,20 @@ public class MainGUI : MonoBehaviour {
 	}
 
 	void DrawRegionPanel(int id) {
+		// SolReg Stats get displayed here:
 		GUI.Label(new Rect(20, 20, 120, 20 ),"Region "+ selectedSR.id);
 		GUI.Label(new Rect(20, 60, 120, 20 ),"Owned by Player "+ selectedSR.owner);
 		GUI.Label(new Rect(20, 100, 120, 20 ),"Income: "+ selectedSR.income);
 		GUI.Label(new Rect(20, 140, 120, 20 ),"Construction Slots:"+ selectedSR.slots);
-	}
 
+		//for (int i = 0; i < 6; ++i) {
+		// grid layout variables
+		int boxXY = 70;
+		int xStart = 200;
+		int yStart = 120;
+		for (int i = 1; i < (selectedSR.slots+1); ++i) {
+			GUI.Box(new Rect(xStart+(i*70), yStart, boxXY, boxXY),"Empty");
+		}
+	}
+		
 }
