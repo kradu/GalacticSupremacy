@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{666343BE-DDF0-E5D4-5A11-AFEAD4F551F7}</ProjectGuid>
+	<ProjectGuid>{583B0AD0-9C29-9603-730A-201301FBE8FB}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -39,17 +39,22 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>D:/Software/Unity3D/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>D:/Software/Unity3D/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Controller\mainController.cs" />
-     <Compile Include="Assets\View\mainView.cs" />
-     <Compile Include="Assets\View\scout.cs" />
-     <Compile Include="Assets\View\solarRegion.cs" />
+     <Compile Include="Assets\Client\GUI\LoginGUI.cs" />
+     <Compile Include="Assets\Client\GUI\MainGUI.cs" />
+     <Compile Include="Assets\Client\Player\PlayerState.cs" />
+     <Compile Include="Assets\Client\cameraController.cs" />
+     <Compile Include="Assets\Client\gsFramework.cs" />
+     <Compile Include="Assets\Client\planetScript.cs" />
+     <Compile Include="Assets\Client\startup.cs" />
+     <Compile Include="Assets\Server\World\generatePlanets.cs" />
+     <None Include="Assets\Planet001\ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
