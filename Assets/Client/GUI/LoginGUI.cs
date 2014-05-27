@@ -23,13 +23,13 @@ public class LoginGUI : MonoBehaviour {
 	
 
 	// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
-		if(GUI.Button(new Rect(20,40,80,20), "Player Red")) {
+		if(GUI.Button(new Rect(20,40,80,20), "Player Blue")) {
 			player.GetComponent<PlayerState>().id = 1;
 			Application.LoadLevel("scene1");
 		}
 
 		// Make the second button.
-		if(GUI.Button(new Rect(20,70,80,20), "Player Blue")) {
+		if(GUI.Button(new Rect(20,70,80,20), "Player Red")) {
 			player.GetComponent<PlayerState>().id = 2;
 			Application.LoadLevel("scene1");
 		}

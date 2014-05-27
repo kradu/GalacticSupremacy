@@ -10,7 +10,7 @@ using gsFramework;
 public class startup : MonoBehaviour {
 
 	public generatePlanets regionServ;
-	public SolReg[] regions;
+	//public SolReg[] regions;
 	private int numRegions;
 	public SolReg selectedSR;
 	GameObject selector;
@@ -22,17 +22,15 @@ public class startup : MonoBehaviour {
 	 */
 	void Start () {
 		// This would be a server request:
-		numRegions = generatePlanets.get_region_num();
-		regions = new SolReg[numRegions];
+		numRegions = generatePlanets.numRegions;
+		//regions = new SolReg[numRegions];
 
 		for (int i = 0; i < numRegions; ++i) {
 			// This would be a server request:
-			regions[i] = generatePlanets.get_sol_reg(i);
-			DrawRegion(regions[i]);
+			//regions[i] = generatePlanets.get_sol_reg(i);
+			DrawRegion(generatePlanets.regions[i]);
 		}
-
 	}
-	
 
 	public void SelectSR(SolReg srSelection) {
 		// If a previous selection exists, deselect. 
