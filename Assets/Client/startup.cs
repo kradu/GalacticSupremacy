@@ -1,38 +1,88 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using gsFramework;
-
+using SimpleJSON;
 
 /* startup is the main class for the client. It holds information
  * about the player(ID) and queries the server for map data. It also
  * holds information about the players GUI interaction (selection).
  */ 
-public class startup : MonoBehaviour {
+public class gameState {
+	public int dimensions;
+	public List<SolReg> regions;
+	public void Update(byte[] data) {
+		char[] chars = new char[data.Length / sizeof(char)];
+		System.Buffer.BlockCopy (data, 0, chars, 0, data.Length);
+		string data_str = new string (chars);
+		//Deserialize the json array into gamedata.
+		JSONArray s = JSON.Parse (data_str).AsArray;
+		dimensions = s [0].AsInt;
+		/* Naiive game-state systems read in the entire
+		 * game state each frame or tick. This needs to be
+		 * implemented using a much more efficient algorithm
+		 * (only send players what they need/make client-side
+		 * predictions.
+		 */
+		foreach (JSONNode node in s[1].AsArray) {
+			SolReg r = new SolReg();
+			r.sector = node[0].AsInt;
+			r.id = node[1].AsInt;
+			r.x = node[2].AsFloat;
+			r.z = node[3].AsFloat;
+			r.scale = node[4].AsFloat;
+			r.texture = "texture" + node[5].AsInt.ToString ();
+			r.owner = node[6].AsInt;
+			r.income = node[7].AsInt;
+			r.slots = node[8].AsInt;
+			foreach(JSONNode adj in node[9].AsArray) {
+				r.adjacent.Add (adj.AsInt);
+			}
+		}
+	}
+}
 
-	public generatePlanets regionServ;
-	public SolReg[] regions;
-	private int numRegions;
+public class startup : MonoBehaviour {
 	public SolReg selectedSR;
 	GameObject selector;
 	GameObject selected;
 	GameObject guiController;
 
-	/* Initialization. Queries the server for the data needed to build and
-	 * render the map. This includes the number regions, and data
-	 */
-	void Start () {
-		// This would be a server request:
-		numRegions = generatePlanets.get_region_num();
-		regions = new SolReg[numRegions];
-
-		for (int i = 0; i < numRegions; ++i) {
-			// This would be a server request:
-			regions[i] = generatePlanets.get_sol_reg(i);
-			DrawRegion(regions[i]);
+	gameState state;
+	private enum Actions
+		{
+		ACTION_SEND_CHAT,
+		ACTION_GET_CHAT,
+		ACTION_UPDATE_GAMESTATE,
+		ACTION_PLAYER_EVENT
 		}
-
+	private string server_url = "http://deco3800-14.uqcloud.net/game.php";
+	private Hashtable header = new Hashtable ();
+	void Startup() {
+		header.Add ("Content-Type", "text/json");
+		state = new gameState ();
 	}
-	
+
+	public IEnumerator UpdateGame() {
+		string request = "{action:" + Actions.ACTION_UPDATE_GAMESTATE + "}";
+		byte[] data = new byte[request.Length * sizeof(char)];
+		System.Buffer.BlockCopy (request.ToCharArray (), 0, data, 0, data.Length);
+		header["Content-Length"] = data.Length;
+		WWW www = new WWW (server_url, data, header);
+		yield return www;
+		state.Update (www.bytes);
+	}
+
+	private int tick = 0; 
+	private int tick_step = 100; //How often to request the game state.
+	void Update() {
+		/* Apply the current game state to the locally running game. */
+		if (tick % tick_step == 0) {
+			StartCoroutine (UpdateGame ());
+			tick = 0;
+		}
+		tick++;
+	}
 
 	public void SelectSR(SolReg srSelection) {
 		// If a previous selection exists, deselect. 

@@ -3,17 +3,13 @@ using System.Collections;
 using gsFramework;
 
 public class generatePlanets : MonoBehaviour {
-
 	/********** Struct Definitions **********/
 	
 
 	private float dimensions = 20.0f;
 	public static int numRegions = 10;	// The number of SolReg in the sector.
-	
-	// can this be static? 
-	public static SolReg[] regions = new SolReg[numRegions];
 
-
+	/* Some of this logic has moved to startup.cs. @jordanhenderson */
 
 	/*
 	15.6, 2.9
@@ -37,26 +33,6 @@ public class generatePlanets : MonoBehaviour {
 		// Generate attributes of the regions
 		draw_borders();
 
-		for (int i = 0; i < numRegions; ++i) {
-			//print(i);
-			regions[i].id = i+1;
-			
-			//pos = find_new_pos(i);
-
-			regions[i].x = xPos[i];
-			regions[i].z = zPos[i];
-			regions[i].owner = 0;
-
-			regions[i].scale = Random.Range(0.1f, 1.0f);
-			regions[i].texture = "texture" + Random.Range(1, 4);
-
-			regions[i].income = Random.Range(10, 30);
-			regions[i].income = Random.Range(3, 5);
-
-			//print("id: " + regions[i].id);
-		}
-		InitOwnership();
-		connect_regions();
 	}
 	
 
@@ -67,8 +43,6 @@ public class generatePlanets : MonoBehaviour {
 	}
 
 	private void InitOwnership() {
-		regions[6].owner = 1;
-		regions[9].owner = 2;
 	}
 
 	/*
@@ -90,9 +64,7 @@ public class generatePlanets : MonoBehaviour {
 	 	// while (something) {
 	 		randX = Random.Range(-dimensions, dimensions);
 
-	 		for (int i = 0; i < index; ++i) {
-	 			xDist = Mathf.Abs(randX-regions[i].x);
-	 		}
+
 	 	//}
 
 
@@ -137,17 +109,7 @@ public class generatePlanets : MonoBehaviour {
 	}
 
 
-	public static int get_region_num () {
-		int num = numRegions;
-		return num;
-	}
 
-	public static SolReg get_sol_reg (int index) {
-		SolReg reg = regions[index];
-		//print("index: " + index);
-		//print("id: " + regions[index].id);
-		return reg;
-	}
 
 	/*
 	 * draw_borders simply places a cube on each corner of the map.

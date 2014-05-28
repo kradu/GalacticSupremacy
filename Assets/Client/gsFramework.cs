@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 namespace gsFramework
 {
 	/*
@@ -12,7 +13,7 @@ namespace gsFramework
 		public float x, z;		// coordinates of the SolReg in the sector-space.
 		public float scale;		// indicator of the planets size
 		public string texture;	// the planets texture for the map
-		public int[] adjacent;	// ID's of adjacent SolReg
+		public List<int> adjacent;
 		public int owner;		// owners playerID
 		public int income;		// Income provided by SolReg
 		public int slots;		// Construction slots on this SolReg
