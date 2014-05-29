@@ -42,12 +42,33 @@ public class gameState {
 	}
 }
 
+<<<<<<< HEAD
+	public generatePlanets regionServ;
+	//public SolReg[] regions;
+	private int numRegions;
+=======
 public class startup : MonoBehaviour {
+>>>>>>> fcf0ce3e44e6d583458ddf83c57668b27b30eeb9
 	public SolReg selectedSR;
 	GameObject selector;
 	GameObject selected;
 	GameObject guiController;
 
+<<<<<<< HEAD
+	/* Initialization. Queries the server for the data needed to build and
+	 * render the map. This includes the number regions, and data
+	 */
+	void Start () {
+		// This would be a server request:
+		numRegions = generatePlanets.numRegions;
+		//regions = new SolReg[numRegions];
+
+		for (int i = 0; i < numRegions; ++i) {
+			// This would be a server request:
+			//regions[i] = generatePlanets.get_sol_reg(i);
+			DrawRegion(generatePlanets.regions[i]);
+		}
+=======
 	gameState state;
 	private enum Actions
 		{
@@ -82,6 +103,7 @@ public class startup : MonoBehaviour {
 			tick = 0;
 		}
 		tick++;
+>>>>>>> fcf0ce3e44e6d583458ddf83c57668b27b30eeb9
 	}
 
 	public void SelectSR(SolReg srSelection) {
@@ -111,12 +133,12 @@ public class startup : MonoBehaviour {
 		return selector;
 	}
 
-	void UpdateSelector(SolReg SR) {
+	/*void UpdateSelector(SolReg SR) {
 		selector.renderer.enabled = true;
 		selector.transform.localPosition = new Vector3(SR.x, 0.1f, SR.z);
-		selector.transform.localScale = new Vector3(1.8f, 0, 1.8f);
+		selector.transform.localScale = new Vector3(1.8f, 0f, 1.8f);
 		selector.renderer.material.color = Color.white;
-	}
+	}*/
 
 	void DrawRegion (SolReg region) {
 		GameObject sphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);

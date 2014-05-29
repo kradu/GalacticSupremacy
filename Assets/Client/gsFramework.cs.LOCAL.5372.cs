@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+/* Galactic Supremacy Framework. Here are shared struct defs and functions.
  */
 namespace gsFramework
 {
@@ -14,7 +14,7 @@ namespace gsFramework
 		public float x, z;				// coordinates of the SolReg in the sector-space.
 		public float scale;				// indicator of the planets size
 		public string texture;			// the planets texture for the map
-		public List<int> adjacent;
+		public int[] adjacent;			// ID's of adjacent SolReg
 		public int owner;				// owners playerID
 		public int income;				// Income provided by SolReg
 		public int slots;				// Construction slots on this SolReg

@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{666343BE-DDF0-E5D4-5A11-AFEAD4F551F7}</ProjectGuid>
+	<ProjectGuid>{DCAA18CD-A2EE-E3E7-C8D3-0EFD848C853E}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
@@ -46,19 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Client\GUI\LoginGUI.cs" />
-     <Compile Include="Assets\Client\GUI\MainGUI.cs" />
-     <Compile Include="Assets\Client\Player\PlayerState.cs" />
-     <Compile Include="Assets\Client\cameraController.cs" />
-     <Compile Include="Assets\Client\gsFramework.cs" />
-     <Compile Include="Assets\Client\planetScript.cs" />
-     <Compile Include="Assets\Client\startup.cs" />
-     <Compile Include="Assets\Server\World\MakeBuildings.cs" />
-     <Compile Include="Assets\Server\World\generatePlanets.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{DCAA18CD-A2EE-E3E7-C8D3-0EFD848C853E}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+     <Compile Include="Assets\Plugins\SimpleJSON.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
