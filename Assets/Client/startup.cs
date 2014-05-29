@@ -59,12 +59,12 @@ public class startup : MonoBehaviour {
 		return selector;
 	}
 
-	void UpdateSelector(SolReg SR) {
+	/*void UpdateSelector(SolReg SR) {
 		selector.renderer.enabled = true;
 		selector.transform.localPosition = new Vector3(SR.x, 0.1f, SR.z);
-		selector.transform.localScale = new Vector3(1.8f, 0, 1.8f);
+		selector.transform.localScale = new Vector3(1.8f, 0f, 1.8f);
 		selector.renderer.material.color = Color.white;
-	}
+	}*/
 
 	void DrawRegion (SolReg region) {
 		GameObject sphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);

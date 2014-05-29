@@ -28,7 +28,7 @@ namespace gsFramework
 		public int id;					// Unique ID of the building type
 		public string name;				// The name of this building.
 		public int cost;				// Construction Cost
-		public int income;			// Income this building adds
+		public int income;				// Income this building adds
 		public float constructionTime;	// Time it takes to construct this building
 		public string imageURL;			// Icon associated with this building
 	}

@@ -40,7 +40,10 @@ public class MainGUI : MonoBehaviour {
 
 	void OnGUI () {
 		resourcePanel = GUI.Window(0, resourcePanel, DrawResourcePanel, "Resources");
-		regionInfoPanel = GUI.Window(1, regionInfoPanel, DrawRegionPanel, "Region "+ selectedSR.id);
+		int id = Player.GetComponent<PlayerState>().id;
+		if (selectedSR.owner == id) {
+			regionInfoPanel = GUI.Window(1, regionInfoPanel, DrawRegionPanel, "Region "+ selectedSR.id);
+		}
 
 		if (showConMenu) {
 			constructionPanel = GUI.Window(2, constructionPanel, DrawConPanel, "Construction Menu");
